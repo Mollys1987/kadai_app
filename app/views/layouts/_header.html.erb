@@ -1,0 +1,26 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/">KitadaApp</a>
+  <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="navbar-collapse collapse" id="navbarNavAltMarkup"style="">
+    <% if logged_in? %>
+    <div class="navbar-nav">
+      <%= link_to current_user.email, u_show_path(current_user), class: "nav-item nav-link" %>
+      <%= link_to "投稿一覧", p_index_path, class: "nav-item nav-link" %>
+      <%= link_to "新規投稿", p_new_path, class: "nav-item nav-link" %>
+      <%= link_to "ユーザー情報更新", u_edit_path(current_user), class: "nav-item nav-link" %>
+      <%= link_to "ユーザー一覧", u_index_path, class: "nav-item nav-link" %>
+      <!--<a class="nav-item nav-link" href="/post_index">投稿一覧</a>-->
+      <!--<a class="nav-item nav-link" href="/post_new">新規投稿</a>-->
+      <%= link_to "Log out", logout_path, method: :delete, class: "nav-item nav-link" %>
+    </div>
+    <% else %>
+    <div class="navbar-nav">
+      <%= link_to "Member registration", u_new_path, class: "nav-item nav-link" %>
+      <%= link_to "Log in", login_path, class: "nav-item nav-link" %>
+    </div>
+    <% end %>
+  </div>
+</nav>
+

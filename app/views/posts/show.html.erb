@@ -1,0 +1,43 @@
+<div class="container" style="margin-top: 15px">
+  <div class="card">
+    <div class="card-header">
+      <%= @post.id %>
+    </div>
+  <div class="card-body">
+    <blockquote class="blockquote mb-0">
+      <p><%= @post.content %></p>
+      <%= image_tag @post.picture.url if @post.picture? %>
+      <footer class="blockquote-footer">created_at: <cite title="Source Title"><%= @post.created_at %></cite></footer>
+    </blockquote>
+  </div>
+    <% if current_user?(@post.user) %>
+      <%= link_to "edit", p_edit_path(@post.id) %>
+      <%= link_to "delete", p_des_path(@post.id), method: :delete %>
+    <% end %>
+  </div>
+  <h3>いいね件数: <%= @post.likes.count %></h3>
+    <% if current_user.already_liked?(@post) %>
+      <%= button_to 'いいねを取り消す', post_like_path(@post), method: :delete %>
+    <% else %>
+      <%= button_to 'いいね', post_likes_path(@post) %>
+    <% end %>
+    <h2>いいねしたユーザー</h2>
+    <% @post.liked_users.each do |user| %>
+      <li><%= user.email %></li>
+    <% end %>
+    
+    <h2>コメント一覧</h2>
+    <% @comments.each do |c| %>
+      <div>
+        <a href="/users/<%= @post.user.id %>"><%= c.user.email %></a>
+        <%= c.content %>
+        <hr>
+      </div>
+    <% end %>
+    
+    <%= form_for [@post, @comment] do |f| %>
+      <%= f.text_field :content %>
+      <br>
+      <%= f.submit 'コメントする' %>
+    <% end %>
+</div>
