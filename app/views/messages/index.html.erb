@@ -1,0 +1,27 @@
+ <% @users.each do |user| %>
+   <tr>
+      <th scope="row"><%= user.id %></th>
+      <th><%= link_to user.email, "/messages/room/#{current_user.id}/#{user.id}" %></td>
+   </tr>
+ <% end %>
+ <%
+  @message_user_ids.each do |message_user_id|
+  message_user = User.find_by(id: message_user_id)
+  unread_count = Message.where(user_id: message_user_id,to_user_id: @user.id,to_user_opentime: nil).count
+  %>
+  <a href="/messages/room/<%= current_user.id %>/<%= message_user.id %>">
+  <div class="border-b border-gray-200 flex py-4 bg-white items-center">
+    <div class="w-10 h-10 mr-4">
+      <img src="<%= user_icon_url(message_user) %>" class="object-cover rounded-full h-10 w-10"/>
+    </div>
+    <div class="">
+      <%= message_user.email %>
+    </div>
+    <% if unread_count > 0 %>
+    <div class="rounded-full bg-green-300 ml-4 text-white w-6 h-6 text-center">
+      <%= unread_count %>
+    </div>
+    <% end %>
+  </div>
+  </a>
+  <% end %>

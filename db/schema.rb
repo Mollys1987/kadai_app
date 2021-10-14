@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_10_13_033644) do
+ActiveRecord::Schema.define(version: 2021_10_14_075231) do
 
   create_table "comments", force: :cascade do |t|
     t.string "content"
@@ -31,14 +31,24 @@ ActiveRecord::Schema.define(version: 2021_10_13_033644) do
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.text "content"
+    t.integer "user_id"
+    t.integer "to_user_id"
+    t.datetime "to_user_opentime"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["to_user_id"], name: "index_messages_on_to_user_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
   create_table "posts", force: :cascade do |t|
     t.string "title"
     t.text "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.integer "user_id"
     t.string "picture"
-    t.index ["user_id", "created_at"], name: "index_posts_on_user_id_and_created_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "relationships", force: :cascade do |t|
@@ -53,11 +63,10 @@ ActiveRecord::Schema.define(version: 2021_10_13_033644) do
 
   create_table "users", force: :cascade do |t|
     t.string "email"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.string "password_digest"
     t.string "remember_digest"
-    t.index ["email"], name: "index_users_on_email", unique: true
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

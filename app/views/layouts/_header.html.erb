@@ -14,6 +14,13 @@
       <!--<a class="nav-item nav-link" href="/post_index">投稿一覧</a>-->
       <!--<a class="nav-item nav-link" href="/post_new">新規投稿</a>-->
       <%= link_to "Log out", logout_path, method: :delete, class: "nav-item nav-link" %>
+    
+    <a href="/messages/index/<%= current_user.id %>">
+      <div class="mr-2">
+        <i class="fab fa-twitter"></i>
+      </div>
+      </a>
+    
     </div>
     <% else %>
     <div class="navbar-nav">

@@ -32,5 +32,9 @@ Rails.application.routes.draw do
     end
   end
   
+  get 'messages/index/:id' => "messages#index"
+  get 'messages/room/:user_id/:to_user_id' => "messages#roomshow"
+  resources :messages
+  
   resources :relationships,       only: [:create, :destroy]
 end
