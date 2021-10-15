@@ -1,10 +1,17 @@
 class CommentsController < ApplicationController
   def create
     p 'comme_start==============='
-    @comment = Comment.new(comment_params)
-    @comment.post_id = comment.posts.build(comment_params)
+    post = Post.find(params[:id])
+@comment = post.comment.build(comment_params)
+
+    # @comment = post.comments.create(comment_params)
+    # @comment = Comment.new(comment_params)
+    # @comment.post_id = @comment.post.id
+    p'1============='
     @comment.user_id = current_user.id
+    p'2============'
     p @comment.errors.full_messages
+    p'3============'
     if @comment.save
       flash[:success] = "コメント created!"
       redirect_back(fallback_location: root_path)

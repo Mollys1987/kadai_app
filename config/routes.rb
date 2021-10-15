@@ -32,7 +32,7 @@ Rails.application.routes.draw do
     end
   end
   
-  get 'messages/index/:id' => "messages#index"
+  get 'messages/index/:id', to:  'messages#index', as: 'm_index'
   get 'messages/room/:user_id/:to_user_id' => "messages#roomshow"
   resources :messages
   
