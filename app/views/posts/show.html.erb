@@ -35,7 +35,8 @@
       </div>
     <% end %>
     
-    <%= form_for [@post, @comment] do |f| %>
+    <%= form_for(@comment, url: p_com_path(@post.id)) do |f| %>
+    
   <%= f.text_field :content %>
   <br>
   <%= f.submit 'コメントする' %>

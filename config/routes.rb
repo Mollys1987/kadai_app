@@ -7,9 +7,10 @@ Rails.application.routes.draw do
   get  'post_edit/:id',  to: 'posts#edit',   as: 'p_edit'
   patch  'post_update/:id',    to: 'posts#update',  as: 'p_up'
   delete 'post_delete/:id',    to: 'posts#destroy', as: 'p_des'
+  post  'post/:id/comment',    to: 'comments#create', as: 'p_com'
   resources :posts do
     resources :likes, only: [:create, :destroy]
-    resources :comments, only: [:create]
+    # resources :comments, only: [:create]
   end
   
   
