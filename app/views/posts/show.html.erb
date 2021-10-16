@@ -31,15 +31,25 @@
       <div>
         <a href="/users/<%= @post.user.id %>"><%= c.user.email %></a>
         <%= c.content %>
+        <%= link_to 'reply', reply_path(post_id: @post.id, parent_id: @comment.id), remote: true %>
+        <% if comment.replies.any? %>
+          <% comment.replies.each do |reply| %> 
+            <%= render partial: 'comments/reply', locals: { reply: reply } %>
+          <% end %>
+        <% end %>
         <hr>
       </div>
     <% end %>
     
+    <div class="card my-1"> 
+  <div class="card-body">
+    <p class="font-weight-bold">Comments</p>
     <%= form_for(@comment, url: p_com_path(@post.id)) do |f| %>
-    
-  <%= f.text_field :content %>
-  <br>
-  <%= f.submit 'コメントする' %>
-<% end %>
+      <%= f.text_field :content %>
+      <br>
+      <%= f.submit 'コメントする' %>
+    <% end %>
+    </div>
+</div>
 
 </div>
