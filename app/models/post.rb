@@ -10,6 +10,10 @@ class Post < ApplicationRecord
     validates :user_id, presence: true
     validate  :picture_size
     
+    def self.search(keyword)
+      where(["title like? OR body like?", "%#{keyword}%", "%#{keyword}%"])
+    end
+    
     private
 
     # アップロードされた画像のサイズをバリデーションする

@@ -1,9 +1,26 @@
+
 <div class="container" style="margin-top: 15px">
   <%= form_for(@user, url: u_create_path) do |f| %>
     <%= render 'shared/error_messages', object: f.object %>
     <div class="form-group">
       <%= f.label :Email %>
       <%= f.email_field :email, class: 'form-control' %>
+    </div>
+    
+    <h1>郵便番号から住所検索</h1> 
+  <label>郵便番号
+    <input type="text" id="postcode" maxlength="8" placeholder="例:0000000">
+  </label>
+  <button id="btn">検索</button>
+    
+    <div class="form-group hide open">
+      <%= f.label :prefucture, value="住所（都道府県）" %>
+      <%= f.text_field :prefucture,  id: 'pref', class: 'form-control' %>
+    </div>
+    
+    <div class="form-group hide open">
+      <%= f.label :city, value="住所（市町村）" %>
+      <%= f.text_field :city, id: 'city', class: 'form-control' %>
     </div>
     
     <div class="form-group">
@@ -19,6 +36,7 @@
     <%= f.submit "Member registration", class: "btn btn-primary btn-lg" %>
   <% end %>
 </div>
+
 
 
 <!--<div class="container" style="margin-top: 15px">-->
@@ -57,3 +75,31 @@
 <!--  }-->
 <!--</script>-->
 <!--  </div>-->
+
+<script>
+
+$(function(){
+  $('#btn').on('click', () => {
+    event.preventDefault();
+    $('.open').fadeIn();
+    $.ajax({
+      url: "https://zipcloud.ibsnet.co.jp/api/search?zipcode=" + $('#postcode').val(),
+      dataType: 'jsonp',
+    }).done((data) => {
+      if (data.results) { 
+        getData(data.results[0]);
+      } else {
+        alert('該当データが見つかりません');
+      }
+    }).fail((data) => {
+      alert('通信に失敗しました');
+    });
+  });
+
+  function getData(data) {
+    $('#pref').val(data.address1);
+    $('#city').val(data.address2);
+    $('#address').val(data.address3);
+  }
+});
+</script>

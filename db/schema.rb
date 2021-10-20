@@ -65,6 +65,8 @@ ActiveRecord::Schema.define(version: 2021_10_14_075231) do
 
   create_table "users", force: :cascade do |t|
     t.string "email"
+    t.string "prefucture"
+    t.string "city"
     t.string "password_digest"
     t.string "remember_digest"
     t.datetime "created_at", null: false

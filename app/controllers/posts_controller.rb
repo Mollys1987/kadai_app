@@ -52,7 +52,12 @@ class PostsController < ApplicationController
     flash[:success] = "post deleted"
     redirect_to u_show_path(current_user)
     p 'des_end========================='
-
+  end
+  
+  def search
+    @posts = Post.search(params[:keyword])
+    @keyword = params[:keyword]
+    render "index"
   end
   
   private

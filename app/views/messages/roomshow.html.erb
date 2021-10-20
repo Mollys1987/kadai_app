@@ -32,7 +32,7 @@
 <div class="">
   <%= form.text_area :content, id: "content", rows: "4", class: "form_textarea mb-4" %>
 </div>
-<%= form.text_area :user_id, class: "hidden", value: current_user.id %>
-<%= form.text_area :to_user_id, class: "hidden", value: @to_user_id %>
+<%= form.text_area :user_id, class: "hidden hide", value: current_user.id %>
+<%= form.text_area :to_user_id, class: "hidden hide", value: @to_user_id %>
 <%= form.submit "メッセージ送信", class: "btn_01" %>
 <% end %>

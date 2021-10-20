@@ -1,4 +1,17 @@
 <div class="container" style="margin-top: 15px">
+  <div class="search-form">
+  <%= form_with url: search_path, method: :get, local: true do |f| %>
+    <%= f.text_field :keyword, value: @keyword %>
+    <%= f.submit "検索" %>
+  <% end %>
+  </div>
+  
+  <div class="post-list">
+    <% @posts.each do |post| %>
+      <%= post.title %>
+    <% end %>
+  </div>
+  
     <h1>投稿一覧</h1>
 <table class="table table-hover">
   <thead>
@@ -7,19 +20,15 @@
       <th scope="col">title</th>
       <th scope="col">created</th>
       <th scope="col">updated</th>
-      <th scope="col">owner</th>
-      <th scope="col">like</th>
     </tr>
   </thead>
   <tbody>
     <% @posts.each do |post| %>
     <tr>
-      <th scope="row"><%= post.id %></th>
+      <td scope="row"><%= post.id %></td>
       <td><%= link_to post.title, p_show_path(post.id) %></td>
       <td><%= post.created_at %></td>
       <td><%= post.updated_at %></td>
-      <td><%= post.user.email %></td>
-      <td>(<%= post.liked_users.count %>)</td>
     </tr>
     <% end %>
   </tbody>  
