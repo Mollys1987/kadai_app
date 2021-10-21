@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   delete 'post_delete/:id',    to: 'posts#destroy', as: 'p_des'
   post  'posts/:post_id/comment',    to: 'comments#create', as: 'p_com'
   post  'posts/:user_id/comment/:comment_id', to: 'replies#create', as: 'reply'
+  post  'posts/:user_id/reply/:reply_id',     to: 'replies#re_rep', as: 'r_reply'
   get 'search', to: 'posts#search'
   resources :posts do
     resources :likes, only: [:create, :destroy]

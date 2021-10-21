@@ -67,9 +67,11 @@ ActiveRecord::Schema.define(version: 2021_10_20_093224) do
     t.string "reply"
     t.integer "user_id"
     t.integer "comment_id"
+    t.integer "reply_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["comment_id"], name: "index_replies_on_comment_id"
+    t.index ["reply_id"], name: "index_replies_on_reply_id"
     t.index ["user_id"], name: "index_replies_on_user_id"
   end
 
