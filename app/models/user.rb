@@ -15,6 +15,7 @@ class User < ApplicationRecord
   has_many :liked_posts, through: :likes, source: :post
   has_many :comments
   has_many :messages
+  has_many :replies, class_name: 'Reply', foreign_key: :user_id, dependent: :destroy
   
   attr_accessor :remember_token
   before_save { self.email = email.downcase }

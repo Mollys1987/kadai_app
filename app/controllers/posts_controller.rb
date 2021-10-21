@@ -27,7 +27,11 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @like = Like.new
     @comments = @post.comments
+    @com = @comments.ids
     @comment = Comment.new
+    @reply = Reply.new
+    @rep_num = @comment.id
+    @replies = Reply.find_by(comment_id: @rep_num)
     p 'end========================='
   end
   

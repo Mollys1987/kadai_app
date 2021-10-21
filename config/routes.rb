@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   patch  'post_update/:id',    to: 'posts#update',  as: 'p_up'
   delete 'post_delete/:id',    to: 'posts#destroy', as: 'p_des'
   post  'posts/:post_id/comment',    to: 'comments#create', as: 'p_com'
-  post  'posts/:post_id/comment/:parent_id', to: 'comments#new', as: 'reply'
+  post  'posts/:user_id/comment/:comment_id', to: 'replies#create', as: 'reply'
   get 'search', to: 'posts#search'
   resources :posts do
     resources :likes, only: [:create, :destroy]

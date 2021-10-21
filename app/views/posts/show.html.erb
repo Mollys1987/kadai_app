@@ -25,31 +25,31 @@
     <% @post.liked_users.each do |user| %>
       <li><%= user.email %></li>
     <% end %>
-    
     <h2>コメント一覧</h2>
     <% @comments.each do |c| %>
-      <div>
         <a href="/users/<%= @post.user.id %>"><%= c.user.email %></a>
+        <br>
         <%= c.content %>
-        <%= link_to 'reply', reply_path(post_id: @post.id, parent_id: @comment.id), remote: true %>
-        <% if comment.replies.any? %>
-          <% comment.replies.each do |reply| %> 
-            <%= render partial: 'comments/reply', locals: { reply: reply } %>
-          <% end %>
+        <%= form_for(@reply, url: reply_path(comment_id: c.id, user_id: current_user.id)) do |f| %>
+          <%= f.text_field :reply %>
+          <br>
+          <%= f.submit 'コメントに返信する' %>
         <% end %>
-        <hr>
-      </div>
     <% end %>
     
+    <% @replies.each do |r| %>
+      <%= r.reply %>
+    <% end  %>
+    
     <div class="card my-1"> 
-  <div class="card-body">
-    <p class="font-weight-bold">Comments</p>
-    <%= form_for(@comment, url: p_com_path(@post.id)) do |f| %>
-      <%= f.text_field :content %>
-      <br>
-      <%= f.submit 'コメントする' %>
-    <% end %>
+      <div class="card-body">
+        <p class="font-weight-bold">Comments</p>
+        <%= form_for(@comment, url: p_com_path(@post.id)) do |f| %>
+          <%= f.text_field :content %>
+          <br>
+          <%= f.submit 'コメントする' %>
+        <% end %>
+      </div>
     </div>
-</div>
 
 </div>
