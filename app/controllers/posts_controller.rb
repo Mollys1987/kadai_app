@@ -31,7 +31,9 @@ class PostsController < ApplicationController
     @comment = Comment.new
     @reply = Reply.new
     @rep_num = @comment.id
-    @replies = Reply.find_by(comment_id: @rep_num)
+    # @replies = Reply.find_by(comment_id: @rep_num)
+    @replies = @comment.replies
+    @r_com = Comment.find_by(post_id: @post.id)
     p 'end========================='
   end
   
