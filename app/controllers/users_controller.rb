@@ -49,6 +49,14 @@ class UsersController < ApplicationController
     @user = User.find(current_user.id)
   end
   
+  def search
+    if params[:email].present?
+      @users = User.where('email LIKE ?', "%#{params[:email]}%")
+    else
+      @users = User.none
+    end
+  end
+  
   private
     def user_params
       params.require(:user).permit(:email, :prefucture, :city, :password, :password_confirmation)
@@ -57,5 +65,9 @@ class UsersController < ApplicationController
     def correct_user
       @user = User.find(current_user.id)
       redirect_to(root_url) unless current_user?(@user)
+    end
+    
+    def post_params
+      params.require(:post).permit(:title)
     end
 end

@@ -7,10 +7,11 @@
     <section class="stats">
     <h3>いいねしている投稿</h3>
       <% @user.liked_posts.each do |post| %>
-        <%= post.user.email %>
-        <%= post.content %>
+        <%= link_to post.user.email, u_show_path(post.user.id) %>
+        <%= link_to post.content, p_show_path(post.id)%>
       <% end %>
     </section>
+    <%= link_to 'メッセージを送る', room_path(user_id: current_user.id, to_user_id: @user.id) %>
 <h2>投稿一覧</h2>
 <table class="table table-hover">
   <thead>

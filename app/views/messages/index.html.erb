@@ -1,28 +1,41 @@
- <% @users.each do |user| %>
-   <tr>
-      <th scope="row"><%= user.id %></th>
-      <th><%= link_to user.email, "/messages/room/#{current_user.id}/#{user.id}" %></td>
-   </tr>
- <% end %>
- <%
-  @message_user_ids.each do |message_user_id|
-  message_user = User.find_by(id: message_user_id)
-  unread_count = Message.where(user_id: message_user_id,to_user_id: @user.id,to_user_opentime: nil).count
-  %>
+<h1>メッセージルーム</h1>
+  <h2>ユーザー検索</h2>
+    <%= form_with url: m_index_path, method: :get, local: true do |f| %>
+      <%= f.text_field :email %>
+      <%= f.submit :search %>
+    <% end %>
+    <table>
+      <thead>
+        <tr>
+          <th>検索結果</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= link_to(user.email, room_path(user_id: current_user.id, to_user_id: user.id)) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+ 
+ <h2>メッセージ履歴</h2>
+ <% @message_user_ids.each do |message_user_id|
+  message_user = User.find_by(id: message_user_id)  %>
+  <% if message_user.present? %>
   <a href="/messages/room/<%= current_user.id %>/<%= message_user.id %>">
   <div class="border-b border-gray-200 flex py-4 bg-white items-center">
     <div class="w-10 h-10 mr-4">
-      <img src='/app/assets/images/rails.png', class="object-cover rounded-full h-10 w-10"/>
-    <%= @user.email %>
+      
     </div>
     <div class="">
+      <a href="/messages/room/<%= current_user.id %>/<%= message_user.id %>">
+      <!--<img src='/app/assets/images/rails.png', class="object-cover rounded-full h-10 w-10"/>-->
       <%= message_user.email %>
+      </a>
     </div>
-    <% if unread_count > 0 %>
-    <div class="rounded-full bg-green-300 ml-4 text-white w-6 h-6 text-center">
-      <%= unread_count %>
-    </div>
-    <% end %>
   </div>
-  </a>
+  <% else %>
+  メッセージを行っているユーザーがいません　
+  <% end %>
   <% end %>

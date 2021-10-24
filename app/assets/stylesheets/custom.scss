@@ -76,3 +76,21 @@
 .hide {
   display: none;
 }
+
+.right {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.left {
+  display: flex;
+  justify-content: flex-start;
+}
+
+// #u_search {
+//   display: none;
+// }
+
+#key_search {
+  display: none;
+}

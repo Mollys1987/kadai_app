@@ -23,6 +23,9 @@ Rails.application.routes.draw do
   get  'user/show/:id',      to: 'users#show',   as: 'u_show'
   get  'user/edit',      to: 'users#edit',   as: 'u_edit'
   patch'user/update',    to: 'users#update', as: 'u_up'
+  resources :users do
+    get :search, on: :collection
+  end
   
   get    '/login',         to: 'sessions#new'
   post   '/login',         to: 'sessions#create'
@@ -37,8 +40,11 @@ Rails.application.routes.draw do
   end
   
   get 'messages/index/:id', to:  'messages#index', as: 'm_index'
-  get 'messages/room/:user_id/:to_user_id' => "messages#roomshow"
-  resources :messages
+  get 'messages/room/:user_id/:to_user_id', to:  "messages#roomshow", as: 'room'
+  post 'send', to: 'messages#create', as: 'send'
+  # resources :messages
   
   resources :relationships,       only: [:create, :destroy]
+  
+  get 'search_func', to: 'search#search',  as: 'search_func'
 end

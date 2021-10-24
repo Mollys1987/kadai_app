@@ -12,7 +12,6 @@ class RepliesController < ApplicationController
   end
   
   def re_rep
-    
     @re_rep = Reply.new(re_params)
     p @re_rep.errors.full_messages
     if @re_rep.save
