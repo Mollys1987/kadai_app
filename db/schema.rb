@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 2021_10_20_093224) do
     t.string "email"
     t.string "prefucture"
     t.string "city"
+    t.string "profile_image"
     t.string "password_digest"
     t.string "remember_digest"
     t.datetime "created_at", null: false

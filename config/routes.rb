@@ -47,4 +47,5 @@ Rails.application.routes.draw do
   resources :relationships,       only: [:create, :destroy]
   
   get 'search_func', to: 'search#search',  as: 'search_func'
+  get 'search_s', to: 'search#sato', as: 'sato'
 end

@@ -32,6 +32,8 @@
       <%= f.label :Password_confirmation %>
       <%= f.password_field :password_confirmation, class: 'form-control' %>
     </div>
+    <%= f.label :profile_image, value="プロフィール画像"%>
+    <%= f.file_field :profile_image, accept: 'image/jpeg,image/gif,image/png' %>
     
     <%= f.submit "Member registration", class: "btn btn-primary btn-lg" %>
   <% end %>

@@ -1,5 +1,11 @@
 <div class="container" style="margin-top: 15px">
     <h1><%= @user.email %>の詳細ページ</h1>
+    <% if @user.profile_image? %>
+      <%= image_tag @user.profile_image.url %>
+    <% else %>
+      <%= image_tag ("rails.png") %>
+    <% end %>
+
     <section class="stats">
       <%= render 'shared/stats' %>
       <%= render 'follow_form' if logged_in? %>
