@@ -17,7 +17,9 @@
         <%= link_to post.content, p_show_path(post.id)%>
       <% end %>
     </section>
-    <%= link_to 'メッセージを送る', room_path(user_id: current_user.id, to_user_id: @user.id) %>
+    <% unless current_user == @user %>
+    <%= link_to 'メッセージを送る', m_show_path(sender_id: current_user.id, receiver_id: @user.id) %>
+    <% end %>
 <h2>投稿一覧</h2>
 <table class="table table-hover">
   <thead>

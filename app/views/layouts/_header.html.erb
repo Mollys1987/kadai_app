@@ -14,7 +14,7 @@
       <!--<a class="nav-item nav-link" href="/post_index">投稿一覧</a>-->
       <!--<a class="nav-item nav-link" href="/post_new">新規投稿</a>-->
       <%= link_to "Log out", logout_path, method: :delete, class: "nav-item nav-link" %>
-      <%= link_to "message", m_index_path(current_user), class: "nav-item nav-link" %>
+      <%= link_to "message", m_index_path(sender_id: current_user.id), class: "nav-item nav-link" %>
       <%= link_to "search", search_func_path, class: "nav-item nav-link" %>
     <!--<a href="/messages/index/<%= current_user.id %>">-->
     <!--  <div class="mr-2">-->

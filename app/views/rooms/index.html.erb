@@ -1,0 +1,33 @@
+<h1>メッセージルーム</h1>
+  <h2>ユーザー検索</h2>
+    <%= form_with url: room_path, method: :get, local: true do |f| %>
+      <%= f.text_field :email %>
+      <%= f.submit :search %>
+    <% end %>
+    <table>
+      <thead>
+        <tr>
+          <th>検索結果</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= link_to(user.email, room_path(user_id: current_user.id, to_user_id: user.id)) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+ 
+<h2>メッセージ履歴</h2>
+<ul>
+  <% @rooms.each do | room | %>
+    <li>
+      <% if @user == room.sender.id %>
+        <%= link_to room.sender.email, exist_room_path(room.id) %>
+      <% else %>
+        <%= link_to room.receiver.email, exist_room_path(room.id) %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

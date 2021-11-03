@@ -29,30 +29,41 @@
     <% end %>
     
     <h2>コメント一覧</h2>
-    <% @comments.each do |c| %>
-        <a href="/users/<%= @post.user.id %>"><%= c.user.email %></a>
-        <br>
-        <%= c.content %>
+    
+      <% @comments.each do |c| %>
+        <div class="card">
+          <div class="card-header">
+            <a href="/users/<%= @post.user.id %>"><%= c.user.email %></a>
+          </div>
+          <div class="card-body">
+            <%= c.content %>
+          </div>
           <%= form_for(@reply, url: reply_path(comment_id: c.id, user_id: current_user.id)) do |f| %>
             <%= f.text_field :reply %>
             <br>
             <%= f.submit 'コメントに返信する' %>
           <% end %>
+        </div>  
         
-        <% c.replies.each do |re| %>
-          <%= re.id %>
-          <%= re.reply %>
-            <%= form_for(@reply, url: r_reply_path(reply_id: re.id, user_id: current_user.id)) do |f| %>
-              <%= f.text_field :reply %>
-              <%= f.text_field :user_id, value: current_user.id, class: 'hide' %>
-              <%= f.text_field :reply_id, value: re.id, class: 'hide' %>
-              <%= f.text_field :comment_id, value: c.id, class: 'hide' %>
-              <br>
-              <%= f.submit '返信に返信する' %>
+              
+            <% c.replies.each do |re| %>
+              <div class="card rep">
+                <div class="card-header">
+                  <%= re.user.email %>
+                </div>
+                <div class="card-body">
+                  <%= c.user.email %>さんへの返信
+                  <br>
+                  <%= re.reply %>
+                </div>
+                <%= form_for(@reply, url: reply_path(comment_id: c.id, user_id: current_user.id)) do |f| %>
+                  <%= f.text_field :reply %>
+                  <br>
+                  <%= f.submit 'コメントに返信する' %>
+                <% end %>
+              </div>
             <% end %>
-          
-        <% end %>
-    <% end %>
+      <% end %>
     
     
     

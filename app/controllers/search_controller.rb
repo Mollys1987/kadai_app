@@ -18,7 +18,6 @@ class SearchController < ApplicationController
   def search
     @users = User.where('email LIKE ?', "%#{params[:email]}%")
     respond_to do |format|
-      format.html
       format.json { render json: {users: @users} }
     end
   end

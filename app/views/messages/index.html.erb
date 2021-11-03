@@ -13,29 +13,50 @@
       <tbody>
         <% @users.each do |user| %>
           <tr>
-            <td><%= link_to(user.email, room_path(user_id: current_user.id, to_user_id: user.id)) %></td>
+            
           </tr>
         <% end %>
       </tbody>
     </table>
  
- <h2>メッセージ履歴</h2>
- <% @message_user_ids.each do |message_user_id|
-  message_user = User.find_by(id: message_user_id)  %>
-  <% if message_user.present? %>
-  <a href="/messages/room/<%= current_user.id %>/<%= message_user.id %>">
-  <div class="border-b border-gray-200 flex py-4 bg-white items-center">
-    <div class="w-10 h-10 mr-4">
-      
-    </div>
-    <div class="">
-      <a href="/messages/room/<%= current_user.id %>/<%= message_user.id %>">
-      <!--<img src='/app/assets/images/rails.png', class="object-cover rounded-full h-10 w-10"/>-->
-      <%= message_user.email %>
-      </a>
-    </div>
-  </div>
-  <% else %>
-  メッセージを行っているユーザーがいません　
+  <h2>履歴表示その１</h2>
+  <% @messages.each do |message| %>
+    <% if @user.id == message.receiver.id %>
+      <% unless message.sender.email == message.sender.email %>
+        <%= message.sender.email %>
+      <% end %>
+    <% else %>
+      <% unless message.receiver.email == message.receiver.email %>
+        <%= message.receiver.email %>
+      <% end %>
+    <% end %>
   <% end %>
+ 
+  
+  <h2>履歴表示その２</h2>
+  <% @message_user_ids.each do |message_user_id|
+    message_user = User.find_by(id: message_user_id)  %>
+        <a href="/messages/room/<%= current_user.id %>/<%= message_user.id %>">
+          <div class="border-b border-gray-200 flex py-4 bg-white items-center">
+            <div class="w-10 h-10 mr-4">
+            </div>
+            <div class="">
+              <a href="/messages/room/<%= current_user.id %>/<%= message_user.id %>">
+              <!--<img src='/app/assets/images/rails.png', class="object-cover rounded-full h-10 w-10"/>-->
+              <% if message_user.profile_image? %>
+                <%= image_tag message_user.profile_image.url, class: "icon_size" %>
+              <% else %>
+                <i class="fas fa-user fa-3x"></i>
+              <% end %>
+              <%= message_user.email %>
+              </a>
+            </div>
+          </div>
+          <% @receivers_id.each do |receiver_id|
+          receive_user = User.find_by(id: receiver_id) %>
+            <% if message_user.id != receive_user.id %>
+              <%= receive_user.email %>
+              
+            <% end %>
+          <% end %>
   <% end %>

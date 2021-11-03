@@ -1,9 +1,16 @@
-<h1><%= @to_user.email %>さんとのメッセージページ</h1>
+<h1>
+  <% if @room %>
+  <h1><%= @room.receiver.email %>さんとのメッセージ</h1>
+<% else %>
+  <h1><%= @receiver.email %>さんとのメッセージ</h1>
+<% end %>
+<%= current_user.email %>
+</h1>
 
 
 <div class="flex flex-col">
   <%
-  @messages.each do |message|
+  @messages&.each do |message|
   %>
     <% if message.sender_id == current_user.id %>
     <div class="right flex flex-row mb-8">
@@ -39,11 +46,26 @@
   <% end %>
 </div>
 
-  <%= form_for(@message, url: send_path) do |form| %>
+  <%= form_for(:message, url: m_send_path) do |form| %>
     <%= form.text_area :content, id: "content", rows: "4", class: "form_textarea mb-4" %>
-    <%= form.text_field :sender_id, class: "hidden hide", value: current_user.id %>
-    <%= form.text_field :receiver_id, class: "hidden hide", value: @to_user.id %>
+    <% if @room %>
+      <%= form.text_field :room_id, class: "hidden hide", value: @room.id %>
+    <% else %>
+      <%= form.text_field :sender_id, class: "hidden hide", value: @sender.id %>
+      <%= form.text_field :receiver_id, class: "hidden hide", value: @receiver.id %>
+    <% end %>
     <%= form.submit "メッセージ送信", class: "btn_01" %>
   <% end %>
+  
+  <%= form_for :message, url: m_send_path do |f| %>
+  <%= f.text_area :content %>
+  <% if @room %>
+    <input type="hidden" name="message[room]" value="<%= @room.id %>">
+  <% else %>
+    <input type="hidden" name="message[sender_id]" value="<%= @sender.id %>">
+    <input type="hidden" name="message[receiver_id]" value="<%= @receiver.id %>">
+  <% end %>
+  <%= f.submit %>
+<% end %>
     
     

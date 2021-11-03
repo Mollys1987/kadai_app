@@ -14,6 +14,7 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :liked_posts, through: :likes, source: :post
   has_many :comments
+  has_many :rooms
   has_many :messages
   has_many :replies, class_name: 'Reply', foreign_key: :user_id, dependent: :destroy
   

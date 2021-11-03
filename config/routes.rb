@@ -39,13 +39,18 @@ Rails.application.routes.draw do
     end
   end
   
-  get 'messages/index/:id', to:  'messages#index', as: 'm_index'
-  get 'messages/room/:user_id/:to_user_id', to:  "messages#roomshow", as: 'room'
-  post 'send', to: 'messages#create', as: 'send'
-  # resources :messages
+  get 'messages/index/:sender_id', to:  'messages#index', as: 'm_index'
+  get 'messages/room/:sender_id/:receiver_id', to:  'messages#roomshow', as: 'm_show'
+  post 'send', to: 'messages#create', as: 'send' 
+  resources :messages
   
   resources :relationships,       only: [:create, :destroy]
   
   get 'search_func', to: 'search#search',  as: 'search_func'
   get 'search_s', to: 'search#sato', as: 'sato'
+  
+  get  'room/index/:id',               to: 'rooms#index',   as: 'room'
+  get  'chat/:room_id',                to: 'rooms#chat',    as: 'exist_room'
+  get  'chat/:sender_id/:receiver_id', to: 'rooms#chat',    as: 'chat'
+  post 'message/send',                 to: 'messages#sending', as: 'm_send'
 end
