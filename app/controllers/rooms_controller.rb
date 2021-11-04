@@ -12,11 +12,11 @@ class RoomsController < ApplicationController
   def chat
     @sender = current_user
     if params[:receiver_id]
-      @receiver = User.find(params[:receiver_id])
+      @receiver = User.find_by(id: params[:receiver_id])
       @room = room_check(@sender, @receiver)
     end
     if params[:room_id]
-      @room = Room.find(params[:room_id])
+      @room = Room.find_by(params[:room_id])
     end
     if @room
       p "========="

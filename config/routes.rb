@@ -39,10 +39,10 @@ Rails.application.routes.draw do
     end
   end
   
-  get 'messages/index/:sender_id', to:  'messages#index', as: 'm_index'
-  get 'messages/room/:sender_id/:receiver_id', to:  'messages#roomshow', as: 'm_show'
-  post 'send', to: 'messages#create', as: 'send' 
-  resources :messages
+  # get 'messages/index/:sender_id', to:  'messages#index', as: 'm_index'
+  # get 'messages/room/:sender_id/:receiver_id', to:  'messages#roomshow', as: 'm_show'
+  # post 'send', to: 'messages#create', as: 'send' 
+  # resources :messages
   
   resources :relationships,       only: [:create, :destroy]
   

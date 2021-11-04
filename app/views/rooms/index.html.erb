@@ -23,7 +23,7 @@
 <ul>
   <% @rooms.each do | room | %>
     <li>
-      <% if @user == room.sender.id %>
+      <% if @user.id == room.receiver.id %>
         <%= link_to room.sender.email, exist_room_path(room.id) %>
       <% else %>
         <%= link_to room.receiver.email, exist_room_path(room.id) %>

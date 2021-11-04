@@ -18,7 +18,7 @@
       <% end %>
     </section>
     <% unless current_user == @user %>
-    <%= link_to 'メッセージを送る', m_show_path(sender_id: current_user.id, receiver_id: @user.id) %>
+    <%= link_to 'メッセージを送る', chat_path(sender_id: current_user.id, receiver_id: @user.id) %>
     <% end %>
 <h2>投稿一覧</h2>
 <table class="table table-hover">
