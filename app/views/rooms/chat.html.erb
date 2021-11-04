@@ -6,7 +6,7 @@
       <%= @room.receiver.email %>さんとのメッセージ
     <% end %>
   <% else %>
-    <%= @receiver %>さんとのメッセージ
+    <%= @receiver.email %>さんとのメッセージ
   <% end %>
 </h1>
 
@@ -57,16 +57,3 @@
     <% end %>
     <%= form.submit "メッセージ送信", class: "btn_01" %>
   <% end %>
-  
-  <%= form_for :message, url: m_send_path do |f| %>
-  <%= f.text_area :content %>
-  <% if @room %>
-    <input type="hidden" name="message[room]" value="<%= @room.id %>">
-  <% else %>
-    <input type="hidden" name="message[sender_id]" value="<%= @sender.id %>">
-    <input type="hidden" name="message[receiver_id]" value="<%= @receiver.id %>">
-  <% end %>
-  <%= f.submit %>
-<% end %>
-    
-    
