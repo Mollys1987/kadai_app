@@ -29,6 +29,7 @@ class MessagesController < ApplicationController
       p @room.errors.full_messages
     end
     p '8'
+    p @message.errors.full_messages
     if @message.save
     p @message.errors.full_messages
       flash[:notice] = "メッセージを送信しました！"
