@@ -13,7 +13,7 @@
       <tbody>
         <% @users.each do |user| %>
           <tr>
-            <td><%= link_to(user.email, room_path(user_id: current_user.id, to_user_id: user.id)) %></td>
+            <td><%= link_to(user.email, chat_path(sender_id: current_user.id, receiver_id: user.id)) %></td>
           </tr>
         <% end %>
       </tbody>

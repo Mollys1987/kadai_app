@@ -6,13 +6,19 @@ class MessagesController < ApplicationController
     p '0=================='
     if params[:message][:room_id]
       p '1=============='
-      @exist_room = Room.find_by(params[:message][:room_id])
+      @exist_room = Room.find_by(id: params[:message][:room_id])
       p @exist_room
       p '2========================'
       @message = @exist_room.messages.build(message_params)
       p '3============'
       p @message
       @message.sender_id = current_user.id
+      if @message.sender_id == @exist_room.sender_id
+        @message.receiver_id = @exist_room.receiver_id
+      else
+        @message.receiver_id = @exist_room.sender_id
+      end
+        
       p @message
     else
       p '4============='
